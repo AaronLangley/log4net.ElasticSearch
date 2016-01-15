@@ -31,6 +31,8 @@ namespace log4net.ElasticSearch.Infrastructure
                 var httpResponse = (HttpWebResponse) httpWebRequest.GetResponse();
                 httpResponse.Close();
 
+                System.Diagnostics.Debug.WriteLine(uri.ToString());
+
                 if (httpResponse.StatusCode != HttpStatusCode.Created)
                 {
                     throw new WebException(
@@ -47,6 +49,8 @@ namespace log4net.ElasticSearch.Infrastructure
         /// <param name="items">List of logEvents</param>
         public void PostBulk<T>(Uri uri, T items)
         {
+			System.Diagnostics.Debug.WriteLine(uri.ToString());
+
             var httpWebRequest = RequestFor(uri);
 
             var postBody = new StringBuilder();

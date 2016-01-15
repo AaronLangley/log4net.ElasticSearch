@@ -4,31 +4,31 @@ using log4net.ElasticSearch.Infrastructure;
 
 namespace log4net.ElasticSearch.Models
 {
-    public class Uri
+    public class ConnectionUri
     {
         readonly StringDictionary connectionStringParts;
 
-        Uri(StringDictionary connectionStringParts)
+        ConnectionUri(StringDictionary connectionStringParts)
         {
             this.connectionStringParts = connectionStringParts;
         }
 
-        public static implicit operator System.Uri(Uri uri)
+        public static implicit operator System.Uri(ConnectionUri uri)
         {
             if (!string.IsNullOrWhiteSpace(uri.User()) && !string.IsNullOrWhiteSpace(uri.Password()))
             {
                 return
-                    new System.Uri(string.Format("{0}://{1}:{2}@{3}:{4}/{5}/{6}{7}", uri.Scheme(), uri.User(), uri.Password(),
-                                                 uri.Server(), uri.Port(), uri.Index(), uri.LogEvent(), uri.Bulk()));
+                    new System.Uri(string.Format("{0}://{1}:{2}@{3}:{4}/{5}{6}{7}", uri.Scheme(), uri.User(), uri.Password(),
+                                                 uri.Server(), uri.Port(), uri.Index(), uri.LogType(), uri.Bulk()));
             }
             return string.IsNullOrEmpty(uri.Port())
-				? new System.Uri(string.Format("{0}://{1}/{2}/{3}{4}", uri.Scheme(), uri.Server(), uri.Index(), uri.LogEvent(), uri.Bulk()))
-					: new System.Uri(string.Format("{0}://{1}:{2}/{3}/{4}{5}", uri.Scheme(), uri.Server(), uri.Port(), uri.Index(), uri.LogEvent(), uri.Bulk()));
+				? new System.Uri(string.Format("{0}://{1}/{2}{3}{4}", uri.Scheme(), uri.Server(), uri.Index(), uri.LogType(), uri.Bulk()))
+					: new System.Uri(string.Format("{0}://{1}:{2}/{3}{4}{5}", uri.Scheme(), uri.Server(), uri.Port(), uri.Index(), uri.LogType(), uri.Bulk()));
         }
 
-        public static Uri For(string connectionString)
+        public static ConnectionUri For(string connectionString)
         {
-            return new Uri(connectionString.ConnectionStringParts());
+            return new ConnectionUri(connectionString.ConnectionStringParts());
         }
 
         string User()
@@ -81,10 +81,12 @@ namespace log4net.ElasticSearch.Models
             return parts.Contains(Keys.Rolling) && parts[Keys.Rolling].ToBool();
         }
 
-		string LogEvent()
+	    string LogType()
         {
-			return connectionStringParts[Keys.LogEvent] ?? "logEvent";
-        }
+			var type = connectionStringParts[Keys.LogType] ?? "logEvent";
+
+			return type == "blank" ? null : "/" + type;
+		}
 
         private static class Keys
         {
@@ -96,7 +98,7 @@ namespace log4net.ElasticSearch.Models
             public const string Index = "Index";
             public const string Rolling = "Rolling";
             public const string BufferSize = "BufferSize";
-			public const string LogEvent = "logEvent";
+			public const string LogType = "logType";
         }
     }
 }

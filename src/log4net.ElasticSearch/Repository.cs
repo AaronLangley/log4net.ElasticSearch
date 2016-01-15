@@ -11,10 +11,10 @@ namespace log4net.ElasticSearch
 
     public class Repository : IRepository
     {
-        readonly Uri uri;
+        readonly ConnectionUri uri;
         readonly IHttpClient httpClient;
 
-        Repository(Uri uri, IHttpClient httpClient)
+		Repository(ConnectionUri uri, IHttpClient httpClient)
         {
             this.uri = uri;
             this.httpClient = httpClient;
@@ -48,7 +48,7 @@ namespace log4net.ElasticSearch
 
         public static IRepository Create(string connectionString, IHttpClient httpClient)
         {
-            return new Repository(Uri.For(connectionString), httpClient);
+			return new Repository(ConnectionUri.For(connectionString), httpClient);
         }
     }
 }

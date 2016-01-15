@@ -96,7 +96,7 @@ namespace log4net.ElasticSearch.Tests.UnitTests
 
         static Uri UriFor(string connectionString)
         {
-            return Models.Uri.For(connectionString);
+            return Models.ConnectionUri.For(connectionString);
         }
     }
 }

@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="log4net.ElasticSearch/Models/ConnectionUri.cs">
+    <Files>
+      <File FileName="log4net.ElasticSearch/Infrastructure/HttpClient.cs" Line="59" Column="10" />
+      <File FileName="log4net.ElasticSearch/ElasticSearchAppender.cs" Line="1" Column="1" />
+      <File FileName="log4net.ElasticSearch/Models/LogEvent.cs" Line="1" Column="1" />
+      <File FileName="log4net.ElasticSearch/Models/ConnectionUri.cs" Line="26" Column="69" />
+      <File FileName="log4net.ElasticSearch.Tests/UnitTests/Stubs/HttpClientStub.cs" Line="1" Column="1" />
+      <File FileName="log4net.ElasticSearch.Tests/UnitTests/SslTests.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
