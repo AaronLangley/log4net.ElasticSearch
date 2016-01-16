@@ -40,7 +40,7 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Data" />
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\Projects\TestES\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\Projects\testES\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

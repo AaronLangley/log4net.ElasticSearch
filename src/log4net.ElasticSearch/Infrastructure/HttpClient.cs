@@ -71,15 +71,28 @@ namespace log4net.ElasticSearch.Infrastructure
                 streamWriter.Flush();
 
                 var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+				var errorBody = GetErrorBody(httpResponse);
                 httpResponse.Close();
 
-                if (httpResponse.StatusCode != HttpStatusCode.Created)
+				if ((int)httpResponse.StatusCode > 203)
                 {
                     throw new WebException(
-                        "Failed to post {0} to {1}.".With(postBody.ToString(), uri));
+						"Failed to post {0} to {1}. Response: {2} {3}"
+						.With(postBody.ToString(), uri, httpResponse.StatusCode, errorBody));
                 }
             }
         }
+
+		private static string GetErrorBody(HttpWebResponse response)
+		{
+			if ((int)response.StatusCode > 203) {
+				using (var reader = new StreamReader(response.GetResponseStream(), ASCIIEncoding.ASCII)) 
+				{
+					return reader.ReadToEnd();
+				}
+			}
+			return null;
+		}
 
         public static HttpWebRequest RequestFor(Uri uri)
         {
